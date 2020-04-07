@@ -8,12 +8,6 @@ cache:
 
 jobs:
   include:
-    - stage: Test
-      name: Static checks
-      script: make static-checks
-    - stage: Test
-      name: Unit tests
-      script: make test
     - stage: Release
       name: Build and upload binaries on GitHub
       if: tag IS present
@@ -35,7 +29,6 @@ jobs:
           tags: true
     - stage: OBS delivery
       name: Commit to OBS dev project
-      if: branch = master AND type != pull_request
       services:
         - docker
       env:
